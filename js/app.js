@@ -1,3 +1,4 @@
+// ✅ استبدال Tabletop بخدمة opensheet
 const SHEET_URL = "https://opensheet.elk.sh/1UuIlKcWEpnRz690m4XS08waT3DNx7H3oIlwkITGKOBs/Sheet1";
 let sheetData = [];
 
@@ -14,7 +15,7 @@ window.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => {
       console.error("فشل تحميل البيانات:", err);
-      alert("حدث خطأ أثناء تحميل البيانات من Google Sheet.");
+      alert("حدث خطأ أثناء تحميل البيانات من Google Sheets.");
     });
 
   const logoutBtn = document.getElementById("logoutBtn");
