@@ -1,20 +1,21 @@
-const SHEET_ID = "1UuIlKcWEpnRz690m4XS08waT3DNx7H3oIlwkITGKOBs";
+const SHEET_URL = "https://opensheet.elk.sh/1UuIlKcWEpnRz690m4XS08waT3DNx7H3oIlwkITGKOBs/Sheet1";
 let sheetData = [];
 
 window.addEventListener("DOMContentLoaded", () => {
-  Tabletop.init({
-    key: `https://docs.google.com/spreadsheets/d/${SHEET_ID}/pubhtml`,
-    simpleSheet: true,
-    callback: (data) => {
+  fetch(SHEET_URL)
+    .then(response => response.json())
+    .then(data => {
       sheetData = data;
-
       if (document.getElementById("loginBtn")) {
         document.getElementById("loginBtn").addEventListener("click", handleLogin);
       } else {
         loadDashboard();
       }
-    }
-  });
+    })
+    .catch(err => {
+      console.error("فشل تحميل البيانات:", err);
+      alert("حدث خطأ أثناء تحميل البيانات من Google Sheet.");
+    });
 
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
@@ -31,8 +32,7 @@ function handleLogin() {
   const errorMsg = document.getElementById("errorMsg");
 
   const user = sheetData.find(row =>
-    (row["الاسم بالعربي"]?.toLowerCase() === name ||
-     row["Name"]?.toLowerCase() === name) &&
+    (row["الاسم بالعربي"]?.toLowerCase() === name || row["Name"]?.toLowerCase() === name) &&
     row["الرقم القومي"] === nid
   );
 
